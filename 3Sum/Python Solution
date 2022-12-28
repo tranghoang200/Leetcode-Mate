@@ -1,0 +1,36 @@
+class Solution:
+    
+    # TC: O(N^2)
+    # SC: O(log(N))
+    
+    result = []
+    
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        
+        for index in range(len(nums)):
+            if nums[index] > 0:
+                break
+            
+            if index == 0 or nums[index - 1] != nums[index]:
+                self.twoSum(nums, index)
+                
+        return self.result
+
+    def twoSum(self, nums: List[int], index: int):
+        low = index + 1
+        high = len(nums) - 1
+        
+        while (low < high):
+            sum = nums[index] + nums[low] + nums[high]
+            
+            if sum == 0:
+                self.result.append([nums[index], nums[low], nums[high]])
+                low += 1
+                high -= 1
+                while low < high and nums[low] == nums[low - 1]:
+                    low += 1     
+            elif sum > 0:
+                high -= 1
+            else:
+                low += 1
