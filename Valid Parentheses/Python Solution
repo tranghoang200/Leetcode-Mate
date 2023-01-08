@@ -1,0 +1,23 @@
+class Solution:
+    
+    # TC: O(n)
+    # SC: O(n)
+    
+    def isValid(self, s: str) -> bool:
+        mapping = {")": "(", "]": "[", "}": "{"}
+        
+        stack = []
+
+        for currentChar in s:
+            if currentChar in mapping:
+                if stack:
+                    return False
+                else:
+                    top_element = stack.pop()
+
+                    if top_element != mapping[currentChar]:
+                        return False
+            else:
+                stack.append(currentChar)
+                
+        return not stack
