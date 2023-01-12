@@ -1,0 +1,26 @@
+class Solution:
+    
+    # TC: O(N^2)
+    # SC: O(1)
+    
+    def longestPalindrome(self, s):
+        start = 0
+        end = 0
+        
+        for i in range(len(s)):
+            case1 = self.ExpandFromCenter(s,i,i) # odd
+            case2 = self.ExpandFromCenter(s,i,i+1) # even
+            maxLen = max(case1, case2)
+            if maxLen > end - start:
+                start = i - (maxLen - 1) / 2
+                end = i + maxLen / 2
+        return s[start:end+1]
+    
+
+    def ExpandFromCenter(self, s, left, right):
+        while left >= 0 and right < len(s) and s[left] == s[right]:
+            left -= 1
+            right += 1
+        
+        return right - left - 1
+        
