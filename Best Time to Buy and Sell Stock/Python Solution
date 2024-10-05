@@ -1,0 +1,19 @@
+class Solution:
+    
+    # TC: O(N)
+    # SC: O(1)
+    
+    def maxProfit(self, prices):
+        minPrice = float('inf')
+        maxProfit = 0
+
+        for currentPrice in prices:
+            if currentPrice < minPrice:
+                minPrice = currentPrice
+            
+            profit = currentPrice - minPrice
+            
+            if profit > maxProfit:
+                maxProfit = profit
+
+        return maxProfit
