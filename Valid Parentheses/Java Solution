@@ -2,33 +2,32 @@ class Solution {
 
     // TC: O(n)
     // SC: O(n)
-    
+
     public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
         HashMap<Character, Character> map = new HashMap<>();
         map.put(')', '(');
         map.put(']', '[');
         map.put('}', '{');
-        
-        Stack<Character> stack = new Stack<>();
-        
-        for(int i = 0; i < s.length(); i++) {
-            char currentChar = s.charAt(i);
-            
-            if(map.containsKey(currentChar)) {
-                if(stack.isEmpty()) {
-                    return false;
-                } else {
-                    char topElement = stack.pop();
-                    
-                    if(topElement != map.get(currentChar)) {
-                        return false;
-                    }
-                }
+
+        for (int i = 0; i < s.length(); i++) {
+            char curChar = s.charAt(i);
+
+            if (!map.containsKey(curChar)) {
+                stack.push(curChar);
             } else {
-                stack.add(currentChar);
+                if (stack.isEmpty()) {
+                    return false;
+                }
+
+                char top = stack.pop();
+
+                if (top != map.get(curChar)) {
+                    return false;
+                }
             }
         }
-        
+
         return stack.isEmpty();
     }
 }

@@ -4,20 +4,19 @@ class Solution:
     # SC: O(n)
     
     def isValid(self, s: str) -> bool:
-        mapping = {")": "(", "]": "[", "}": "{"}
-        
         stack = []
+        map = {')': '(', ']': '[', '}': '{'}
 
-        for currentChar in s:
-            if currentChar in mapping:
-                if stack:
-                    return False
-                else:
-                    top_element = stack.pop()
-
-                    if top_element != mapping[currentChar]:
-                        return False
+        for curChar in s:
+            if curChar not in map:
+                stack.append(curChar)
             else:
-                stack.append(currentChar)
+                if not stack:
+                    return False
                 
+                top = stack.pop()
+
+                if top != map[curChar]:
+                    return False
+
         return not stack
